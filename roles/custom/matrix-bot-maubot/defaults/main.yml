@@ -114,7 +114,7 @@ matrix_bot_maubot_container_additional_networks_custom: []
 # - `matrix_bot_maubot_container_image_customizations_dockerfile_body_custom`
 # - `matrix_bot_maubot_docker_image_customized`
 # - `matrix_bot_maubot_docker_image_final`
-matrix_bot_maubot_container_image_customizations_enabled: false
+matrix_bot_maubot_container_image_customizations_enabled: true
 
 # matrix_bot_maubot_container_image_customizations_dockerfile_body contains your custom Dockerfile steps
 # for building your customized maubot image based on the original (upstream) image (`matrix_bot_maubot_docker_image`).
@@ -127,7 +127,8 @@ matrix_bot_maubot_container_image_customizations_enabled: false
 #  RUN echo 'This is a custom step for building the customized container image for maubot.'
 #  RUN echo 'You can override matrix_bot_maubot_container_image_customizations_dockerfile_body_custom to add your own steps.'
 #  RUN echo 'You do NOT need to include a FROM clause yourself.'
-matrix_bot_maubot_container_image_customizations_dockerfile_body_custom: ''
+matrix_bot_maubot_container_image_customizations_dockerfile_body_custom: |
+  RUN apk add --no-cache ffmpeg bs4 py3-bs4
 
 # matrix_bot_maubot_container_labels_traefik_enabled controls whether labels to assist a Traefik reverse-proxy will be attached to the container.
 # See `../templates/labels.j2` for details.

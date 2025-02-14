@@ -2,3 +2,5 @@
 FROM {{ matrix_bot_maubot_docker_image }}
 
 {{ matrix_bot_maubot_container_image_customizations_dockerfile_body_custom }}
+
+RUN apk add --no-cache ffmpeg bs4 py3-bs4

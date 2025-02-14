@@ -70,7 +70,7 @@ matrix_bot_maubot_container_image_customizations_enabled: true
 # Adjust the Dockerfile and install ffmpeg.
 #
 matrix_bot_maubot_container_image_customizations_dockerfile_body_custom: |
-  RUN apk add --no-cache ffmpeg
+  RUN apk add --no-cache ffmpeg bs4 py3-bs4
 ```
 
 Consult the [Dockerfile reference](https://docs.docker.com/reference/dockerfile/) for more information about the syntax.
@@ -124,3 +124,21 @@ The default logging level for this component is `WARNING`. If you want to increa
 # Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG
 matrix_bot_maubot_logging_level: DEBUG
 ```
+
+## Testing the maubot setup
+
+To verify the maubot setup, you can run the test playbook and test script provided. Follow these steps:
+
+1. **Run the test playbook**: The test playbook will check the status of the maubot service, verify the configuration file, and ensure the required dependencies are installed.
+
+```sh
+ansible-playbook test-maubot.yml
+```
+
+2. **Run the test script**: The test script will execute the test playbook using Ansible.
+
+```sh
+./test-maubot.sh
+```
+
+By following these steps, you can ensure that the maubot setup is correctly verified and tested. This will help in identifying any issues and ensuring a smooth setup process for others running communities.
