@@ -12,6 +12,9 @@
     - when: matrix_bot_maubot_enabled | bool
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_install.yml"
 
+    - when: matrix_bot_maubot_enabled | bool
+      ansible.builtin.include_tasks: "{{ playbook_dir }}/test-maubot.yml"
+
 - tags:
     - setup-all
     - setup-bot-maubot

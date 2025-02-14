@@ -1,0 +1,49 @@
+---
+- name: Test maubot setup
+  hosts: localhost
+  tasks:
+    - name: Check maubot service status
+      ansible.builtin.systemd:
+        name: matrix-bot-maubot
+        state: started
+      register: maubot_service_status
+
+    - name: Verify maubot configuration file
+      ansible.builtin.stat:
+        path: "{{ matrix_bot_maubot_config_path }}/config.yaml"
+      register: maubot_config_file
+
+    - name: Ensure maubot configuration file exists
+      ansible.builtin.fail:
+        msg: "Maubot configuration file does not exist"
+      when: not maubot_config_file.stat.exists
+
+    - name: Check if ffmpeg is installed
+      ansible.builtin.command: ffmpeg -version
+      register: ffmpeg_installed
+      ignore_errors: yes
+
+    - name: Ensure ffmpeg is installed
+      ansible.builtin.fail:
+        msg: "ffmpeg is not installed"
+      when: ffmpeg_installed.rc != 0
+
+    - name: Check if bs4 is installed
+      ansible.builtin.command: python3 -c "import bs4"
+      register: bs4_installed
+      ignore_errors: yes
+
+    - name: Ensure bs4 is installed
+      ansible.builtin.fail:
+        msg: "bs4 is not installed"
+      when: bs4_installed.rc != 0
+
+    - name: Check if py3-bs4 is installed
+      ansible.builtin.command: python3 -c "import bs4"
+      register: py3_bs4_installed
+      ignore_errors: yes
+
+    - name: Ensure py3-bs4 is installed
+      ansible.builtin.fail:
+        msg: "py3-bs4 is not installed"
+      when: py3_bs4_installed.rc != 0
